@@ -1,7 +1,9 @@
 #include <iostream>
 #include <map>
 
-int	main(int ac, char **av) {  
+int	main(int ac, char **av) {
+
+    std::cout << "ok" << std::endl;
 try {
   // Demarre Client
     // Run le tout
