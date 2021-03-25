@@ -11,22 +11,25 @@ int main(int argc, char* argv[])
     try
     {
 
+        /* init socket */
         boost::asio::io_service io_service;
-
         udp::socket s(io_service, udp::endpoint(udp::v4(), 0));
 
+        /* connect to server */
         udp::resolver resolver(io_service);
         udp::resolver::query query(udp::v4(), "127.0.0.1", "9999");
-
         udp::endpoint endpoint = *resolver.resolve(query);
 
+        /* enter message */
         std::cout << "Enter message: ";
         char request[1024];
         std::cin.getline(request, 1024);
         size_t request_length = std::strlen(request);
-        std::cout << "request : "<< request << std::endl;
+
+        /* send message */
         s.send_to(boost::asio::buffer(request, request_length), endpoint);
 
+        /* receive reply */
         char reply[1024];
         udp::endpoint sender_endpoint;
         size_t reply_length = s.receive_from(
