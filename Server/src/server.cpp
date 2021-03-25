@@ -2,7 +2,10 @@
 
 #include <iostream>
 #include <boost/asio.hpp>
+#include <cstdlib>
 
+using boost::asio::ip::udp;
+/*
 using namespace boost::asio;
 using namespace boost::asio::ip;
 
@@ -24,9 +27,9 @@ void sendData(tcp::socket& socket, const std::string& message)
 
 int main(int argc, char* argv[])
 {
-    std::cout << "ok" << std::endl;
 
     io_service io_service;
+
 
     // Listening for any new incomming connection
     // at port 9999 with IPv4 protocol
@@ -35,8 +38,11 @@ int main(int argc, char* argv[])
     // Creating socket object
     tcp::socket server_socket(io_service);
 
+    std::cout << "waiting for connection ..." << std::endl;
     // waiting for connection
     acceptor_server.accept(server_socket);
+
+    std::cout << "connection accepted" << std::endl;
 
     // Reading username
     std::string u_name = getData(server_socket);
@@ -45,33 +51,42 @@ int main(int argc, char* argv[])
 
     // Replying with default mesage to initiate chat
     std::string response, reply;
-    reply = "Hello " + u_name + "!";
+    reply = "you said " + u_name + " !";
     std::cout << "Server: " << reply << std::endl;
-    sendData(server_socket, reply);
 
-    while (true) {
+    std::string thanks = "thanks";
+    sendData(server_socket, thanks);
 
-        // Fetching response
-        response = getData(server_socket);
+    return 0;
+}
+*/
 
-        // Popping last character "\n"
-        response.pop_back();
 
-        // Validating if the connection has to be closed
-        if (response == "exit") {
-            std::cout << u_name << " left!" << std::endl;
-            break;
-        }
-        std::cout << u_name << ": " << response << std::endl;
 
-        // Reading new message from input stream
-        std::cout << "Server"
-             << ": ";
-        getline(std::cin, reply);
-        sendData(server_socket, reply);
+using boost::asio::ip::udp;
 
-        if (reply == "exit")
-            break;
+int main(int argc, char* argv[])
+{
+    try
+    {
+
+        boost::asio::io_service io_service;
+        udp::socket sock(io_service, udp::endpoint(udp::v4(), 9999));
+
+        udp::endpoint sender_endpoint;
+        char data[1024];
+        std::cout << "waiting for connection..." << std::endl;
+        size_t length = sock.receive_from(boost::asio::buffer(data, 1024), sender_endpoint);
+
+        std::cout << data << std::endl;
+
+        sock.send_to(boost::asio::buffer(data, length), sender_endpoint);
+
     }
+    catch (std::exception& e)
+    {
+        std::cerr << "Exception: " << e.what() << "\n";
+    }
+
     return 0;
 }
