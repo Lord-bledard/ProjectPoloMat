@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
         udp::endpoint sender_endpoint;
         size_t reply_length = s.receive_from(
                 boost::asio::buffer(reply, 1024), sender_endpoint);
+
         std::cout << "Reply is: ";
         std::cout.write(reply, reply_length);
         std::cout << std::endl;
