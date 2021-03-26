@@ -23,21 +23,20 @@ int main(int argc, char* argv[])
 
         /* enter Message */
 
-        Message msg = {UNKNOWN, "super"};
+        Message msg;
 
-        /* send Message */
-        s.send_to(boost::asio::buffer((char *) &msg, sizeof(Message)), endpoint);
-        std::cout << "message sended : " << msg.data << std::endl;
+        while (msg.type != MsgType::STOP)
+        {
+            std::cout << "Enter Message: ";
+            std::cin.getline(msg.data, 20);
 
-        /* receive reply */
-        char reply[1024];
-        udp::endpoint sender_endpoint;
-        size_t reply_length = s.receive_from(
-                boost::asio::buffer(reply, 1024), sender_endpoint);
+            if (strcmp(msg.data, "stop") == 0)
+                msg.type = MsgType::STOP;
 
-        std::cout << "Reply is: ";
-        std::cout.write(reply, reply_length);
-        std::cout << std::endl;
+            s.send_to(boost::asio::buffer((char *) &msg, sizeof(Message)), endpoint);
+            std::cout << "message sended : " << msg.data << std::endl;
+        }
+
     }
     catch (std::exception& e)
     {

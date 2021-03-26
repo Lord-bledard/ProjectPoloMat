@@ -18,23 +18,32 @@ Server::Server()
     std::cout << "create server" << std::endl;
 }
 
-
-void Server::run()
+Message Server::receive_msg_blocking()
 {
-    std::cout << "run" <<std::endl;
-    /* wait for receive */
     udp::endpoint sender_endpoint;
-    char data[1024];
-    std::cout << "waiting for connection..." << std::endl;
-
-    //struct Message msg = initMessagelocal(INIT_GAME, "salut");
-
     struct Message msg;
 
     socket->receive_from(boost::asio::buffer((char *) &msg, sizeof(struct Message)), sender_endpoint);
 
-    std::cout << msg.data << std::endl;
+    return msg;
+}
 
+void Server::run()
+{
+    std::cout << "run" <<std::endl;
+
+    std::cout << "waiting for connection..." << std::endl;
+
+    Message msg;
+
+    while (msg.type != MsgType::STOP)
+    {
+        msg = receive_msg_blocking();
+
+        std::cout << "received message : " << msg.data << std::endl;
+    }
+
+    std::cout << "bye bye" << std::endl;
 }
 
 void Server::init(int port) {

@@ -6,7 +6,8 @@
 enum MsgType {
     INIT_GAME,
     END_GAME,
-    UNKNOWN
+    UNKNOWN,
+    STOP
 };
 
 struct Message {
