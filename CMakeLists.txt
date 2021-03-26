@@ -5,12 +5,53 @@ project(r-type)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-set(SOURCE_FILES_SERVER Server/src/server.cpp)
-set(SOURCE_FILES_CLIENT Client/src/client.cpp)
+Set(SOURCE_FILES_COMMON
 
-add_executable(r-type_server ${SOURCE_FILES_SERVER})
-add_executable(r-type_client ${SOURCE_FILES_CLIENT})
+        Common/include/Message.h
+        Common/src/Message.cpp
+        )
+
+set(SOURCE_FILES_SERVER
+
+        Server/include/Game.h
+        Server/include/Server.h
+
+
+        Server/src/Game.cpp
+        Server/src/Server.cpp
+
+        Server/src/main.cpp
+        )
+
+set(SOURCE_FILES_CLIENT
+        Client/include/client.h
+
+        Client/src/client.cpp
+        )
+
+add_executable(r-type_server ${SOURCE_FILES_SERVER} ${SOURCE_FILES_COMMON})
+add_executable(r-type_client ${SOURCE_FILES_CLIENT} ${SOURCE_FILES_COMMON})
 
 target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})
+
+target_include_directories(
+        r-type_server PUBLIC
+
+        Server/include
+        Server/src
+
+        Common/include
+        Common/src
+)
+
+target_include_directories(
+        r-type_client PUBLIC
+
+        Client/include
+        Client/src
+
+        Common/include
+        Common/src
+)
 

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <boost/asio.hpp>
+#include <Message.h>
 
 using boost::asio::ip::udp;
 
@@ -20,14 +21,13 @@ int main(int argc, char* argv[])
         udp::resolver::query query(udp::v4(), "127.0.0.1", "9999");
         udp::endpoint endpoint = *resolver.resolve(query);
 
-        /* enter message */
-        std::cout << "Enter message: ";
-        char request[1024];
-        std::cin.getline(request, 1024);
-        size_t request_length = std::strlen(request);
+        /* enter Message */
 
-        /* send message */
-        s.send_to(boost::asio::buffer(request, request_length), endpoint);
+        Message msg = {UNKNOWN, "super"};
+
+        /* send Message */
+        s.send_to(boost::asio::buffer((char *) &msg, sizeof(Message)), endpoint);
+        std::cout << "message sended : " << msg.data << std::endl;
 
         /* receive reply */
         char reply[1024];
