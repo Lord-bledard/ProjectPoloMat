@@ -1,5 +1,3 @@
-
-
 #include <GameManager.h>
 #include <thread>
 #include <iostream>
@@ -17,5 +15,5 @@ void GameManager::start_new_game()
         game.start();
     };
 
-    threads.push_back(std::thread(&new_game));
+//    threads.push_back(std::thread(&new_game));
 }

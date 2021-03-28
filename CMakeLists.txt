@@ -7,8 +7,11 @@ conan_basic_setup()
 
 Set(SOURCE_FILES_COMMON
 
-        Common/include/Message.h
-        Common/src/Message.cpp
+        Common/include/Request.h
+        Common/include/RequestManager.h
+
+        Common/src/Request.cpp
+        Common/src/RequestManager.cpp
         )
 
 set(SOURCE_FILES_SERVER
@@ -24,10 +27,12 @@ set(SOURCE_FILES_SERVER
         Server/src/GameManager.cpp)
 
 set(SOURCE_FILES_CLIENT
-        Client/include/client.h
+        Client/include/Client.h
+        Client/include/Menu.h
 
-        Client/src/client.cpp
-        Server/include/GameManager.h Client/include/Menu.h Client/src/Menu.cpp)
+        Client/src/main.cpp
+        Client/src/Client.cpp
+        Client/src/Menu.cpp )
 
 add_executable(r-type_server ${SOURCE_FILES_SERVER} ${SOURCE_FILES_COMMON})
 add_executable(r-type_client ${SOURCE_FILES_CLIENT} ${SOURCE_FILES_COMMON})

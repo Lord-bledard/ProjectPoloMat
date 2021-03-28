@@ -5,7 +5,8 @@
 #include <list>
 #include <iostream>
 #include <boost/asio.hpp>
-#include "Message.h"
+#include <RequestManager.h>
+#include "Request.h"
 #include "GameManager.h"
 
 using boost::asio::ip::udp;
@@ -13,12 +14,10 @@ using boost::asio::ip::udp;
 class Server {
 
 private:
-    int port;
 
-    udp::socket *socket;
     GameManager gameManager;
+    RequestManager requestManager;
 
-    Message receive_msg_blocking();
 
 public:
     Server();

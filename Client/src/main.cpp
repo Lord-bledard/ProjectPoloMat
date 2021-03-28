@@ -1,13 +1,9 @@
 #include <iostream>
-#include <map>
+#include <Client.h>
 
-int	main(int ac, char **av) {
-
-    std::cout << "ok" << std::endl;
-try {
-  // Demarre Client
-    // Run le tout
-} catch (const std::exception &msg) {
-		  //gestion erreur
-	}
+int	main(int argc, char *argv[])
+{
+    Client client = Client();
+    client.init();
+    client.run();
 }
