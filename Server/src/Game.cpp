@@ -1,13 +1,14 @@
 #include <iostream>
 
-class Game {
-private:
+#include "Game.h"
 
-public:
+Game::Game()
+{
+    std::cout << "init game" << std::endl;
+}
 
-    Game()
-    {
-        std::cout << "init game" << std::endl;
-    }
 
-};
+void Game::start()
+{
+    std::cout << "start game in new thread" << std::endl;
+}

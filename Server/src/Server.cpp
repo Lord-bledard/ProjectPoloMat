@@ -8,13 +8,14 @@
 #include "Message.h"
 #include "Server.h"
 #include "Game.h"
-
+#include "GameManager.h"
 
 using boost::asio::ip::udp;
 
 
 Server::Server()
 {
+    this->gameManager = GameManager();
     std::cout << "create server" << std::endl;
 }
 
@@ -41,6 +42,15 @@ void Server::run()
         msg = receive_msg_blocking();
 
         std::cout << "received message : " << msg.data << std::endl;
+
+        switch (msg.type) {
+            case MsgType::INIT_GAME:
+                std::cout << "new game request" << std::endl;
+                this->gameManager.start_new_game();
+                break;
+            default:
+                break;
+        }
     }
 
     std::cout << "bye bye" << std::endl;
