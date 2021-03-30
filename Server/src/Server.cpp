@@ -4,6 +4,7 @@
 #include <boost/asio.hpp>
 #include <cstdlib>
 #include <list>
+#include <RequestNewGame.h>
 
 #include "Request.h"
 #include "Server.h"
@@ -24,30 +25,38 @@ void Server::run()
 
     std::cout << "waiting for connection..." << std::endl;
 
-    Request req;
+    this->requestManager.receive();
+    this->requestManager.run();
 
-    while (req.type != RequestType::STOP)
+    /*
+    while (req->type != RequestType::STOP)
     {
-        req = this->requestManager.receive_request_blocking();
 
-        std::cout << "received message : " << req.data << std::endl;
 
-        switch (req.type) {
-            case RequestType::INIT_GAME:
+       // std::cout << "received message : " << req.data << std::endl;
+
+        switch (req->type) {
+            case RequestType::INIT_GAME: {
                 std::cout << "new game request" << std::endl;
                 this->gameManager.start_new_game();
                 break;
-            default:
+            }
+            case RequestType::END_GAME: {
+                std::cout << "test" << std::endl;
+            }
+            default: {
                 break;
+            }
         }
     }
+     */
 
     std::cout << "bye bye" << std::endl;
 }
 
 void Server::init(int port)
 {
-    this->requestManager.init(port);
+    this->requestManager.init_as_server(port);
 }
 
 

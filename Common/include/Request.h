@@ -13,16 +13,11 @@ enum RequestType {
 struct Request {
 
     RequestType type;
-    char data[1024];
 
     Request();
     Request(RequestType type);
 };
 
-struct RequestInitGame {
-    int nbPlayers;
-    char gameName[40];
-};
 
 
 /*

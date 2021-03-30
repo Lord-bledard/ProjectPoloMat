@@ -6,6 +6,10 @@
 class Client {
 private:
     RequestManager requestManager;
+
+    void create_game_menu();
+    void join_game_menu();
+
 public:
 	Client();
 

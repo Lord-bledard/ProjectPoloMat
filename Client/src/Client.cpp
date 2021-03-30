@@ -5,6 +5,8 @@
 #include <Request.h>
 #include <Menu.h>
 #include <Client.h>
+#include "RequestNewGame.h"
+#include "RequestManager.h"
 
 using boost::asio::ip::udp;
 
@@ -15,7 +17,7 @@ Client::Client()
 
 }
 
-void create_game_menu()
+void Client::create_game_menu()
 {
 
     Menu numPlayersMenu = Menu("How many players ?",
@@ -29,18 +31,21 @@ void create_game_menu()
         return;
     }
 
+    int nbPlayers = selection;
+
     std::string gameName;
 
     std::cout << "Choose a name for your game : ";
     std::cin >> gameName;
 
-    //TODO send game creation request
+    Request req = RequestNewGame(nbPlayers, gameName);
+    this->requestManager.send_request(&req);
 
     std::cout << "Game created : " << gameName << std::endl << std::endl;
 
 }
 
-void join_game_menu()
+void Client::join_game_menu()
 {
     //TODO ask server for games names
 
@@ -88,6 +93,5 @@ void Client::run()
 
 void Client::init()
 {
-    this->requestManager.init(0);
-    this->requestManager.connect_to_server();
+    this->requestManager.init_as_client(0);
 }

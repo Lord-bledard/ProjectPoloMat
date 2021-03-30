@@ -8,9 +8,11 @@ conan_basic_setup()
 Set(SOURCE_FILES_COMMON
 
         Common/include/Request.h
+        Common/include/RequestNewGame.h
         Common/include/RequestManager.h
 
         Common/src/Request.cpp
+        Common/src/RequestNewGame.cpp
         Common/src/RequestManager.cpp
         )
 
@@ -32,7 +34,7 @@ set(SOURCE_FILES_CLIENT
 
         Client/src/main.cpp
         Client/src/Client.cpp
-        Client/src/Menu.cpp )
+        Client/src/Menu.cpp)
 
 add_executable(r-type_server ${SOURCE_FILES_SERVER} ${SOURCE_FILES_COMMON})
 add_executable(r-type_client ${SOURCE_FILES_CLIENT} ${SOURCE_FILES_COMMON})
