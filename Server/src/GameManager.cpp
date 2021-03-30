@@ -8,7 +8,7 @@ GameManager::GameManager()
 }
 
 
-void GameManager::start_new_game()
+void GameManager::start_new_game(int nbPlayers, std::string gameName)
 {
     auto new_game = []() {
         Game game = Game();

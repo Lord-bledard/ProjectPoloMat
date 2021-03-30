@@ -4,9 +4,11 @@
 #include <string>
 
 enum RequestType {
+    UNKNOWN,
     INIT_GAME,
     END_GAME,
-    UNKNOWN,
+    LIST_GAMES,
+    RESPONSE_LIST_GAME, /* todo maybe split request and response enums ? */
     STOP
 };
 

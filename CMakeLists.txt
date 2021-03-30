@@ -9,11 +9,10 @@ Set(SOURCE_FILES_COMMON
 
         Common/include/Request.h
         Common/include/RequestNewGame.h
-        Common/include/RequestManager.h
+        Common/include/ResponseListGames.h
 
         Common/src/Request.cpp
         Common/src/RequestNewGame.cpp
-        Common/src/RequestManager.cpp
         )
 
 set(SOURCE_FILES_SERVER
@@ -62,5 +61,5 @@ target_include_directories(
         Common/src
 )
 
-set_property(TARGET r-type_server PROPERTY CXX_STANDARD 11)
-set_property(TARGET r-type_client PROPERTY CXX_STANDARD 11)
+set_property(TARGET r-type_server PROPERTY CXX_STANDARD 20)
+set_property(TARGET r-type_client PROPERTY CXX_STANDARD 20)

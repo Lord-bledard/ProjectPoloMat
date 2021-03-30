@@ -5,8 +5,8 @@
 #include <Request.h>
 #include <Menu.h>
 #include <Client.h>
+#include "ResponseListGames.h"
 #include "RequestNewGame.h"
-#include "RequestManager.h"
 
 using boost::asio::ip::udp;
 
@@ -39,7 +39,8 @@ void Client::create_game_menu()
     std::cin >> gameName;
 
     Request req = RequestNewGame(nbPlayers, gameName);
-    this->requestManager.send_request(&req);
+
+    this->send_request(&req);
 
     std::cout << "Game created : " << gameName << std::endl << std::endl;
 
@@ -47,9 +48,16 @@ void Client::create_game_menu()
 
 void Client::join_game_menu()
 {
-    //TODO ask server for games names
+    std::vector<GameListItem> gameList = this->get_game_list();
 
-    std::vector<std::string> options = {"return", "a", "b", "c"};
+    std::vector<std::string> options = {"return"};
+
+    for (auto &item : gameList)
+    {
+        std::string option = std::string(item.gameName) + " - " + std::to_string(item.nbPlayers)+ "/" + std::to_string(item.capacity);
+
+        options.push_back(option);
+    }
 
     Menu joinGameMenu = Menu("What game do you want to join ?", options);
 
@@ -58,7 +66,7 @@ void Client::join_game_menu()
     if (selection == RETURN)
         return;
 
-    std::string gameName = options[selection];
+    std::string gameName = gameList[selection - 1].gameName;
 
     //TODO send request
     std::cout << "join game " << gameName << std::endl;
@@ -93,5 +101,67 @@ void Client::run()
 
 void Client::init()
 {
-    this->requestManager.init_as_client(0);
+
+    /* init boost asio service */
+    this->io_service = new boost::asio::io_service();
+
+    /* connect to server */
+    udp::resolver resolver(*io_service);
+    udp::resolver::query query(udp::v4(), "127.0.0.1", "9999");
+    udp::endpoint endpoint_ = *resolver.resolve(query);
+    endpoint = &endpoint_;
+
+    /* init socket */
+    this->socket = new udp::socket (*io_service, udp::endpoint(udp::v4(), 0));
+
+    /*
+    Request req = Request(RequestType::STOP);
+    std::cout << "request type : " << req.type << std::endl;
+    this->socket->send_to(boost::asio::buffer(&req, sizeof(Request)), *endpoint);
+     */
+}
+
+void Client::send_request(Request* request)
+{
+    size_t s;
+
+    switch (request->type) {
+        case RequestType::INIT_GAME:
+            s = sizeof(RequestNewGame);
+            break;
+        case RequestType::LIST_GAMES:
+            s = sizeof(Request);
+        default: {
+            break;
+        }
+    }
+
+    socket->send_to(boost::asio::buffer((char *) request, s), *endpoint);
+}
+
+ResponseListGames Client::receive_response_list_games()
+{
+    ResponseListGames response;
+    size_t len = this->socket->receive_from(boost::asio::buffer(&response, sizeof(ResponseListGames)), *endpoint);
+    /* todo error checking */
+    return response;
+}
+
+std::vector<GameListItem> Client::get_game_list()
+{
+    /* Ask server for game list */
+    Request request(RequestType::LIST_GAMES);
+    this->send_request(&request);
+
+    /* Wait for response */
+    ResponseListGames response = this->receive_response_list_games();
+
+    /* build vector from message */
+    std::vector<GameListItem> gameList = std::vector<GameListItem>();
+    for (int i = 0; i < response.nbGames; i++)
+    {
+        gameList.push_back(response.gameList[i]);
+    }
+
+    return gameList;
 }

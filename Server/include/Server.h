@@ -5,7 +5,7 @@
 #include <list>
 #include <iostream>
 #include <boost/asio.hpp>
-#include <RequestManager.h>
+#include "RequestNewGame.h"
 #include "Request.h"
 #include "GameManager.h"
 
@@ -16,13 +16,24 @@ class Server {
 private:
 
     GameManager gameManager;
-    RequestManager requestManager;
 
+    boost::asio::io_service *io_service;
+    udp::socket *socket;
+    udp::endpoint *endpoint;
+
+    void handle_receive(const boost::system::error_code& error, size_t bytes_transferred);
+    void handle_request(Request* request);
+    void handle_request_init_game(RequestNewGame* request);
+    void handle_request_list_games();
+
+    void send_request(Request* request);
 
 public:
     Server();
     void init(int port);
     void run();
+    void receive();
+
 
 
 };

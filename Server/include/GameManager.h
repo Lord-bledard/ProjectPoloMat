@@ -14,7 +14,8 @@ public:
 
     GameManager();
 
-    void start_new_game();
+    void start_new_game(int nbPlayers, std::string gameName);
+
 
 };
 #endif //R_TYPE_GAMEMANAGER_H
