@@ -13,7 +13,7 @@ struct GameListItem {
 
     }
 
-    GameListItem(int nbPlayers, int capacity, char *gameName)
+    GameListItem(int nbPlayers, int capacity, const char *gameName)
     {
         this->nbPlayers = nbPlayers;
         this->capacity = capacity;

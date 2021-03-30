@@ -18,6 +18,8 @@ Server::Server()
 void Server::run()
 {
 
+    this->gameManager.start_new_game(3, "DefaultGame");
+
     this->receive();
     this->io_service->run();
 
@@ -132,13 +134,14 @@ void Server::handle_request_list_games()
 {
     ResponseListGames responseGameList = ResponseListGames();
 
-    //this->gameManager.getGameList();
+    std::vector<GameListItem> gameList = this->gameManager.get_game_list();
 
-    responseGameList.nbGames = 2;
+    responseGameList.nbGames = gameList.size();
 
-    responseGameList.gameList[0] = GameListItem(4, 4, "WarpZone");
-    responseGameList.gameList[1] = GameListItem(2, 4, "Coucou");
-
+    for (int i = 0; i < gameList.size(); i++)
+    {
+        responseGameList.gameList[i] = gameList[i];
+    }
 
     this->send_request(&responseGameList);
 }

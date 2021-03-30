@@ -4,6 +4,8 @@
 #include "Game.h"
 //#include <thread>
 #include <list>
+#include <vector>
+#include <ResponseListGames.h>
 
 class GameManager
 {
@@ -15,6 +17,7 @@ public:
     GameManager();
 
     void start_new_game(int nbPlayers, std::string gameName);
+    std::vector<GameListItem> get_game_list();
 
 
 };

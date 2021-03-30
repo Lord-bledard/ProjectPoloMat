@@ -6,7 +6,11 @@
 class Game {
 
 public:
-    Game();
+    int nbPlayers;
+    int capacity;
+    std::string name;
+
+    Game(int capacity, std::string name);
     void start();
 };
 

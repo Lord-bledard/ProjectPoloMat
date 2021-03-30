@@ -2,9 +2,12 @@
 
 #include "Game.h"
 
-Game::Game()
+Game::Game(int capacity, std::string name) :
+    nbPlayers(0),
+    capacity(capacity),
+    name(name)
 {
-    std::cout << "init game" << std::endl;
+    std::cout << "init game " << this->name << std::endl;
 }
 
 
