@@ -11,7 +11,7 @@ Mainframe::Mainframe(Client* client) {
 
 void Mainframe::run()
 {
-    int windowWidth = 800;
+    int windowWidth = 680;
     int windowHeight = 400;
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "R-Type");
 

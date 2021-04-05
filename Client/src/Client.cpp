@@ -73,16 +73,14 @@ std::vector<GameEntity*> Client::get_state(ClientActionEnum action)
             {
                 case SHIP: {
                     Ship* entity = new Ship();
-                    entity->x = item.x;
-                    entity->y = item.y;
+                    entity->setPosition(item.x, item.y);
                     entities.push_back(entity);
                     break;
                 }
 
                 case WALL: {
                     Wall* entity = new Wall();
-                    entity->x = item.x;
-                    entity->y = item.y;
+                    entity->setPosition(item.x, item.y);
                     entities.push_back(entity);
                     break;
                 }

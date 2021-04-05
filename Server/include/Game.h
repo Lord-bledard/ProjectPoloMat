@@ -6,7 +6,7 @@
 
 class Game {
 public:
-    std::vector<GameEntity> entities;
+    std::vector<GameEntity*> entities;
 
     Game();
 };
