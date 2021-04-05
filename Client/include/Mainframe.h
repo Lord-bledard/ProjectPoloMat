@@ -9,7 +9,7 @@ class Mainframe
 {
 private:
     Client* client;
-    std::vector<GameEntity> entities;
+    std::vector<GameEntity*> entities;
 
 public:
     Mainframe(Client* client);

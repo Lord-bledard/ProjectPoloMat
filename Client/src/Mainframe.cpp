@@ -41,10 +41,15 @@ void Mainframe::run()
         window.clear();
 
         for (auto &entity : entities)
-            window.draw(entity.sprite);
+        {
+            std::cout << "i am entity " << entity->type << " coords : " << entity->x << " " << entity->y << std::endl;
+
+            window.draw(entity->sprite);
+        }
+
 
         window.display();
-        this->client->send_action(action);
+        this->entities = this->client->get_state(action);
     }
 
 }

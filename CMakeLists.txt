@@ -10,11 +10,12 @@ Set(SOURCE_FILES_COMMON
         Common/include/Request.h
         Common/include/RequestNewGame.h
         Common/include/ResponseListGames.h
+        Common/include/EntityEnum.h
         Common/include/GameEntity.h
         Common/include/Wall.h
+        Common/include/Ship.h
         Common/include/RequestGameState.h
         Common/include/GameStateItem.h
-        Common/include/EntityEnum.h
         Common/include/RequestClientAction.h
         Common/include/ClientActionEnum.h
         Common/include/RequestEnum.h

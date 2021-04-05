@@ -1,6 +1,6 @@
 #include <iostream>
-#include <Ship.h>
-#include <Wall.h>
+#include "Ship.h"
+#include "Wall.h"
 
 #include "Game.h"
 

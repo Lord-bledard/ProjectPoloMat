@@ -9,6 +9,8 @@
 #include <ClientActionEnum.h>
 #include <RequestClientAction.h>
 #include <RequestGameState.h>
+#include <Ship.h>
+#include <Wall.h>
 #include "ResponseListGames.h"
 
 using boost::asio::ip::udp;
@@ -42,8 +44,9 @@ void Client::init()
 }
 
 
-RequestGameState Client::send_action(ClientActionEnum action)
+std::vector<GameEntity*> Client::get_state(ClientActionEnum action)
 {
+    std::vector<GameEntity*> entities;
 
     try
     {
@@ -59,9 +62,38 @@ RequestGameState Client::send_action(ClientActionEnum action)
         RequestGameState state;
         this->socket->receive_from(boost::asio::buffer((char *) &state, sizeof(RequestGameState)), server_endpoint);
 
+        std::cout << "nb items " << state.nbItems << std::endl;
+
+        for (int i = 0; i < state.nbItems; i++)
+        {
+
+            GameStateItem item = state.gameItems[i];
+
+            switch (item.entity)
+            {
+                case SHIP: {
+                    Ship* entity = new Ship();
+                    entity->x = item.x;
+                    entity->y = item.y;
+                    entities.push_back(entity);
+                    break;
+                }
+
+                case WALL: {
+                    Wall* entity = new Wall();
+                    entity->x = item.x;
+                    entity->y = item.y;
+                    entities.push_back(entity);
+                    break;
+                }
+            }
+        }
+
     }
     catch (std::exception& e)
     {
         std::cerr << "Exception: " << e.what() << "\n";
     }
+
+    return entities;
 }

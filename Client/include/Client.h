@@ -24,7 +24,7 @@ public:
 
     void init();
 	void run();
-	RequestGameState send_action(ClientActionEnum action);
+    std::vector<GameEntity*> get_state(ClientActionEnum action);
 	void receive_game_state();
 
 
