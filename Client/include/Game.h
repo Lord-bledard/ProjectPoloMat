@@ -28,8 +28,6 @@ public:
     sf::Font font;
     std::string roomname = "room";
     std::string playername = "player";
-  //  std::vector <std::string> chat;
-  //  std::vector <std::string> player;
     std::vector<Bullet*> bullet;
     std::vector<Monster*> monster;
     std::vector<Ship*> ship;
@@ -40,6 +38,10 @@ public:
     int GetPlayerById(int id);
 	bool MobExist(int id);
     bool PlayerExist(int id);
+    void PlayerMvt(sf::Event &event);
+    bool GameEndShoot();
+    void display();
+    void run();
 };
 
 #endif                 /* !R_TYPE_CLIENT_H */
