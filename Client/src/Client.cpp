@@ -5,6 +5,7 @@
 #include <Request.h>
 #include <Menu.h>
 #include <Client.h>
+#include <Mainframe.h>
 #include "ResponseListGames.h"
 #include "RequestNewGame.h"
 
@@ -48,6 +49,7 @@ void Client::create_game_menu()
 
 void Client::join_game_menu()
 {
+
     std::vector<GameListItem> gameList = this->get_game_list();
 
     std::vector<std::string> options = {"return"};
@@ -72,13 +74,22 @@ void Client::join_game_menu()
     std::cout << "join game " << gameName << std::endl;
 }
 
+void play()
+{
+    Mainframe mainframe = Mainframe();
+    mainframe.run();
+    std::cout << "Exit game" << std::endl;
+}
+
+
+
 void Client::run()
 {
 
     Menu mainMenu = Menu("What do you want to do ?",
-                         {"Start new game", "Join existing game", "Exit"});
+                         {"Start new game", "Join existing game", "Play", "Exit"});
 
-    enum options {NEW_GAME, JOIN_GAME, EXIT};
+    enum options {NEW_GAME, JOIN_GAME, PLAY, EXIT};
 
     int exit = 0;
 
@@ -92,6 +103,8 @@ void Client::run()
             case JOIN_GAME:
                 join_game_menu();
                 break;
+            case PLAY:
+                play();
             case EXIT:
                 exit = 1;
                 break;
