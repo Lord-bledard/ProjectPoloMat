@@ -10,9 +10,15 @@ Set(SOURCE_FILES_COMMON
         Common/include/Request.h
         Common/include/RequestNewGame.h
         Common/include/ResponseListGames.h
+        Common/include/GameEntity.h
+        Common/include/Wall.h
+
 
         Common/src/Request.cpp
         Common/src/RequestNewGame.cpp
+        Common/src/GameEntity.cpp
+        Common/src/Wall.cpp
+        Common/src/Ship.cpp
         )
 
 set(SOURCE_FILES_SERVER
@@ -23,17 +29,19 @@ set(SOURCE_FILES_SERVER
 
         Server/src/Game.cpp
         Server/src/Server.cpp
-
         Server/src/main.cpp
         Server/src/GameManager.cpp)
 
 set(SOURCE_FILES_CLIENT
         Client/include/Client.h
         Client/include/Menu.h
+        Client/include/Mainframe.h
 
         Client/src/main.cpp
         Client/src/Client.cpp
-        Client/src/Menu.cpp Client/include/Mainframe.h Client/src/Mainframe.cpp Client/src/Ship.cpp Client/include/GameEntity.h Client/src/GameEntity.cpp Client/include/Wall.h Client/src/Wall.cpp)
+        Client/src/Menu.cpp
+        Client/src/Mainframe.cpp
+        )
 
 add_executable(r-type_server ${SOURCE_FILES_SERVER} ${SOURCE_FILES_COMMON})
 add_executable(r-type_client ${SOURCE_FILES_CLIENT} ${SOURCE_FILES_COMMON})
