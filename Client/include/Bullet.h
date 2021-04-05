@@ -16,9 +16,9 @@ class Bullet {
 private:
 
 public:
-	Bullet(sf::Vector2f,std::string,float,int);
+	Bullet(sf::Vector2f,int,float,int);
     ~Bullet();
-    int event(sf::Event,sf::RenderWindow *);
+   // int event(sf::Event,sf::RenderWindow *);
     bool display(sf::RenderWindow *, float);
     sf::Texture texture;
     sf::Sprite bullet;

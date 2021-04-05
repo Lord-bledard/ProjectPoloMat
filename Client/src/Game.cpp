@@ -33,3 +33,28 @@ int Game::GetPlayerById(int id) {
     }
     return (-1);
 }
+
+void Game::run()
+{
+
+}
+
+void Game::PlayerMvt(sf::Event &event)
+{
+	switch (event.key.code) {
+		case sf::Keyboard::Z :
+			//up
+			break;
+		case sf::Keyboard::Q :
+			//left
+			break;
+		case sf::Keyboard::S :
+			//down
+			break;
+		case sf::Keyboard::D :
+			//right
+			break;
+		default :
+			break;
+	}
+}
