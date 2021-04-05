@@ -35,8 +35,7 @@ set(SOURCE_FILES_SERVER
 
         Server/src/Game.cpp
         Server/src/Server.cpp
-        Server/src/main.cpp
-        Server/src/GameManager.cpp)
+        Server/src/main.cpp)
 
 set(SOURCE_FILES_CLIENT
         Client/include/Client.h

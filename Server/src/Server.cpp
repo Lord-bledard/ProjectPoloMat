@@ -6,17 +6,19 @@
 #include "RequestClientAction.h"
 #include "RequestGameState.h"
 #include "ResponseListGames.h"
+#include "Game.h"
 
 using boost::asio::ip::udp;
-
 
 Server::Server()
 {
     std::cout << "create server" << std::endl;
+    gameEngine = Game();
 }
 
 void Server::run()
 {
+
 
     while (true)
     {
@@ -65,7 +67,14 @@ void Server::send_game_state()
 {
 
     RequestGameState request;
-    request.nbItems = 10;
+
+    for (int i = 0; i < this->gameEngine.entities.size(); i++)
+    {
+        GameEntity entity = this->gameEngine.entities[i];
+        request.gameItems[i] = {.entity = entity.type, .x = entity.x, .y = entity.y};
+    }
+
+    request.nbItems = this->gameEngine.entities.size();
     this-socket->send_to(boost::asio::buffer(&request, sizeof(RequestGameState)), *endpoint);
 }
 

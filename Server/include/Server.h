@@ -7,7 +7,6 @@
 #include <boost/asio.hpp>
 #include "RequestNewGame.h"
 #include "Request.h"
-#include "GameManager.h"
 
 using boost::asio::ip::udp;
 
@@ -17,6 +16,7 @@ private:
     boost::asio::io_service *io_service;
     udp::socket *socket;
     udp::endpoint *endpoint;
+    Game gameEngine;
 
     void receive_client_action();
     void send_game_state();
