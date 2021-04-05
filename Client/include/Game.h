@@ -39,6 +39,8 @@ public:
 	bool MobExist(int id);
     bool PlayerExist(int id);
     void PlayerMvt(sf::Event &event);
+    bool GameEndShoot();
+    void display();
     void run();
 };
 

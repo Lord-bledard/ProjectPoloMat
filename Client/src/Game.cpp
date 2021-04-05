@@ -58,3 +58,24 @@ void Game::PlayerMvt(sf::Event &event)
 			break;
 	}
 }
+
+bool Game::GameEndShoot()
+{
+    sf::Event event;
+
+		if (event.type == sf::Event::Closed) {
+			return false;
+		}
+		if (event.type == sf::Event::KeyPressed)
+        {
+			PlayerMvt(event);
+            return true;
+        }
+		if (event.type == sf::Event::KeyReleased &&
+			event.key.code == sf::Keyboard::Space)
+            {
+            return true;
+			//shoot
+			
+	}
+}
