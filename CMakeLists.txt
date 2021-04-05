@@ -33,7 +33,7 @@ set(SOURCE_FILES_CLIENT
 
         Client/src/main.cpp
         Client/src/Client.cpp
-        Client/src/Menu.cpp Client/include/Mainframe.h Client/src/Mainframe.cpp)
+        Client/src/Menu.cpp Client/include/Mainframe.h Client/src/Mainframe.cpp Client/src/Ship.cpp Client/include/GameEntity.h Client/src/GameEntity.cpp Client/include/Wall.h Client/src/Wall.cpp)
 
 add_executable(r-type_server ${SOURCE_FILES_SERVER} ${SOURCE_FILES_COMMON})
 add_executable(r-type_client ${SOURCE_FILES_CLIENT} ${SOURCE_FILES_COMMON})

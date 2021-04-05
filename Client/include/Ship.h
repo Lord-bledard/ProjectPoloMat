@@ -3,12 +3,13 @@
 
 #include <boost/asio.hpp>
 #include <ResponseListGames.h>
+#include <SFML/Graphics/Sprite.hpp>
 #include "Request.h"
+#include "GameEntity.h"
 
 using boost::asio::ip::udp;
 
-class Ship {
-private:
+class Ship : public GameEntity {
 
 public:
 	Ship();
