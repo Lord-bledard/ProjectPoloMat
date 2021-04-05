@@ -3,8 +3,11 @@
 #include <iostream>
 #include <Ship.h>
 #include <Wall.h>
+#include <ClientActionEnum.h>
 
-Mainframe::Mainframe() {}
+Mainframe::Mainframe(Client* client) {
+    this->client = client;
+}
 
 void Mainframe::run()
 {
@@ -50,6 +53,8 @@ void Mainframe::run()
             window.draw(entity.sprite);
 
         window.display();
+        std::cout << "send action" << std::endl;
+        this->client->send_action(ClientActionEnum::RIGHT);
     }
 
 }

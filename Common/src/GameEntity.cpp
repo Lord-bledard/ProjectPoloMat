@@ -5,6 +5,7 @@
 
 GameEntity::GameEntity(std::string filename, sf::IntRect rect, int width, int height)
 {
+    this->type = EntityEnum::OBJECT;
     this->width = width;
     this->height = height;
 

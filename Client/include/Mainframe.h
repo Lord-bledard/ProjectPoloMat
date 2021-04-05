@@ -3,14 +3,16 @@
 
 #include <SFML/Graphics.hpp>
 #include "GameEntity.h"
+#include "Client.h"
 
 class Mainframe
 {
 private:
+    Client* client;
     std::vector<GameEntity> entities;
 
 public:
-    Mainframe();
+    Mainframe(Client* client);
     void run();
 
 };
