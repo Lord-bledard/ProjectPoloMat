@@ -40,21 +40,31 @@ void Mainframe::run()
     while (window.isOpen())
     {
         sf::Event event;
+        ClientActionEnum action = IDLE;
+
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+            action = UP;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+            action = LEFT;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            action = DOWN;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            action = RIGHT;
+
+        std::cout << "action : " << action << std::endl;
         window.clear();
-        //window.draw(shape);
 
         for (auto &entity : entities)
             window.draw(entity.sprite);
 
         window.display();
-        std::cout << "send action" << std::endl;
-        this->client->send_action(ClientActionEnum::RIGHT);
+        this->client->send_action(action);
     }
 
 }
